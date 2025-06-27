@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+*.xcodeproj/project.xcworkspace
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+build/
+Build/
+*.hmap
+*.ipa
+*.dSYM/
+*.xcscheme
+
+# Swift
+.swiftpm/
+*.xcodeproj
+Package.resolved
+Package.swift
+*.xcworkspace
+
+# Cocoapods
+Pods/
