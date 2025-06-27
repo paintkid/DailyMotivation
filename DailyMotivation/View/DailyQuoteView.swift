@@ -1,7 +1,11 @@
-//
-//  DailyQuoteView.swift
-//  DailyMotivation
-//
-//  Created by Joel Kim on 6/27/25.
-//
+import SwiftUI
 
+struct DailyQuoteView: View {
+    var body: some View {
+        Text("Daily quotes")
+    }
+}
+
+#Preview {
+    DailyQuoteView()
+}

@@ -1,7 +1,21 @@
-//
-//  MainTabView.swift
-//  DailyMotivation
-//
-//  Created by Joel Kim on 6/27/25.
-//
+import SwiftUI
 
+struct MainTabView: View {
+    var body: some View {
+        TabView {
+            DailyQuoteView()
+                .tabItem {
+                    Label("Today", systemImage: "sparkles")
+                }
+            
+            FavoritesView()
+                .tabItem {
+                    Label("Favorites", systemImage: "star.fill")
+                }
+        }
+    }
+}
+
+#Preview {
+    MainTabView()
+}

@@ -1,7 +1,11 @@
-//
-//  FavoritesView.swift
-//  DailyMotivation
-//
-//  Created by Joel Kim on 6/27/25.
-//
+import SwiftUI
 
+struct FavoritesView: View {
+    var body: some View {
+        Text("Favorite quotes")
+    }
+}
+
+#Preview {
+    FavoritesView()
+}

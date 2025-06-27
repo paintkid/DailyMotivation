@@ -1,7 +1,12 @@
-//
-//  Quote.swift
-//  DailyMotivation
-//
-//  Created by Joel Kim on 6/27/25.
-//
+import Foundation
 
+struct Quote: Identifiable, Codable {
+    let id = UUID()
+    let text: String
+    let author: String
+    var isFavorite: Bool = false
+    
+    private enum CodingKeys: String, CodingKey {
+        case text, author
+    }
+}
