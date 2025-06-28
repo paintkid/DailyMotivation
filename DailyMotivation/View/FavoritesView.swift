@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    // 1. Receive the ViewModel from the parent
+
     @ObservedObject var viewModel: QuoteViewModel
     
     var body: some View {

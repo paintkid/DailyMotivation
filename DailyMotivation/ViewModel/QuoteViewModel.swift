@@ -1,40 +1,37 @@
 import Foundation
 
+@MainActor
 class QuoteViewModel: ObservableObject {
     
     @Published var dailyQuote: Quote?
     @Published var favoriteQuotes: [Quote] = []
+    @Published var errorMessage: String?
     
-    private var sampleQuotes: [Quote] = [
-        Quote(text: "The only way to do great work is to love what you do.", author: "Steve Jobs"),
-        Quote(text: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu"),
-        Quote(text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson"),
-        Quote(text: "Act as if what you do makes a difference. It does.", author: "William James"),
-        Quote(text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill")
-    ]
+    private var allQuotes: [Quote] = []
+    private let quoteService = QuoteService()
     
     init() {
-        fetchDailyQuote()
+        Task {
+            await fetchAllQuotes()
+            if allQuotes.isEmpty == false {
+                fetchDailyQuote()
+            }
+        }
     }
-    
-    func toggleFavorite(for quote: Quote) {
-           guard let index = sampleQuotes.firstIndex(where: { $0.id == quote.id }) else { return }
-           
-           sampleQuotes[index].isFavorite.toggle()
-
-           if sampleQuotes[index].isFavorite {
-               favoriteQuotes.append(sampleQuotes[index])
-           } else {
-               favoriteQuotes.removeAll(where: { $0.id == quote.id })
-           }
-           
-           if dailyQuote?.id == quote.id {
-               dailyQuote?.isFavorite = sampleQuotes[index].isFavorite
-           }
-       }
     
     func fetchDailyQuote() {
-        self.dailyQuote = sampleQuotes.randomElement()
+        dailyQuote = allQuotes.randomElement()
     }
-    
+
+    func fetchAllQuotes() async {
+        errorMessage = nil
+        
+        do {
+            allQuotes = try await quoteService.fetchQuotes()
+            print("Successfully fetched \(allQuotes.count) quotes.")
+        } catch {
+            errorMessage = "Failed to fetch quotes. Please check your connection and try again."
+            print("Error fetching quotes: \(error)")
+        }
+    }
 }

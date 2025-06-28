@@ -7,6 +7,7 @@ struct Quote: Identifiable, Codable {
     var isFavorite: Bool = false
     
     private enum CodingKeys: String, CodingKey {
-        case text, author
+        case text = "q"
+        case author = "a"
     }
 }
