@@ -22,6 +22,18 @@ struct DailyQuoteView: View {
             }
             .padding(.horizontal, 20)
             
+            VStack {
+                Spacer()
+                if let quote = viewModel.dailyQuote {
+                    Button(action: {
+                        viewModel.toggleFavorite(for: quote)
+                    }) {
+                        Image(systemName: quote.isFavorite ? "heart.fill" : "heart")
+                            .font(.largeTitle)
+                            .foregroundColor(.pink)
+                    }
+                }
+            }
         }
         .padding(.bottom, 30)
     }
