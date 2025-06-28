@@ -1,11 +1,36 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    // 1. Receive the ViewModel from the parent
+    @ObservedObject var viewModel: QuoteViewModel
+    
     var body: some View {
-        Text("Favorite quotes")
+        NavigationView {
+            if viewModel.favoriteQuotes.isEmpty {
+                Text("You haven't favorited any quotes yet!")
+                    .foregroundColor(.secondary)
+            } else {
+                List(viewModel.favoriteQuotes) { quote in
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(quote.text)
+                            .font(.headline)
+                        Text("- \(quote.author)")
+                            .font(.subheadline)
+                            .italic()
+                    }
+                }
+                .navigationTitle("Favorites")
+            }
+
+        }
     }
 }
 
 #Preview {
-    FavoritesView()
+    let previewViewModel = QuoteViewModel()
+
+    previewViewModel.favoriteQuotes.append(
+        Quote(text: "Preview Favorite Quote.", author: "Preview Author", isFavorite: true)
+    )
+    return FavoritesView(viewModel: previewViewModel)
 }

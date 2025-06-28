@@ -14,6 +14,13 @@ struct DailyQuoteView: View {
                 Text("- \(quote.author)")
                     .font(.headline)
                     .foregroundColor(.secondary)
+                Button(action: {
+                    viewModel.toggleFavorite(for: quote)
+                }) {
+                    Image(systemName: quote.isFavorite ? "star.fill" : "heart")
+                        .font(.largeTitle)
+                        .foregroundColor(.pink)
+                }
             } else {
                 Text("Fetching your daily quote...")
             }

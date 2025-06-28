@@ -11,7 +11,7 @@ struct MainTabView: View {
                     Label("Today", systemImage: "sparkles")
                 }
             
-            FavoritesView()
+            FavoritesView(viewModel: viewModel)
                 .tabItem {
                     Label("Favorites", systemImage: "star.fill")
                 }
