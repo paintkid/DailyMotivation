@@ -5,30 +5,41 @@ struct DailyQuoteView: View {
     @ObservedObject var viewModel: QuoteViewModel
     
     var body: some View {
-        VStack {
-            if let quote = viewModel.dailyQuote {
-                Text("\"\(quote.text)\"")
-                    .font(.largeTitle)
-                    .multilineTextAlignment(.center)
-                
-                Text("- \(quote.author)")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                Button(action: {
-                    viewModel.toggleFavorite(for: quote)
-                }) {
-                    Image(systemName: quote.isFavorite ? "star.fill" : "heart")
+        ZStack {
+            VStack {
+                if let quote = viewModel.dailyQuote {
+                    Text("\"\(quote.text)\"")
                         .font(.largeTitle)
-                        .foregroundColor(.pink)
+                        .multilineTextAlignment(.center)
+                    
+                    Text("- \(quote.author)")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .padding(.top, 8)
+                } else {
+                    Text("Fetching your daily quote...")
                 }
-            } else {
-                Text("Fetching your daily quote...")
+            }
+            .padding(.horizontal, 20)
+            
+            VStack {
+                Spacer()
+                if let quote = viewModel.dailyQuote {
+                    Button(action: {
+                        viewModel.toggleFavorite(for: quote)
+                    }) {
+                        Image(systemName: quote.isFavorite ? "heart.fill" : "heart")
+                            .font(.largeTitle)
+                            .foregroundColor(.pink)
+                    }
+                }
             }
         }
-        .padding(.horizontal, 20)
+        .padding(.bottom, 30)
     }
 }
 
 #Preview {
-    DailyQuoteView(viewModel: QuoteViewModel())
+    let previewVM = QuoteViewModel()
+    return DailyQuoteView(viewModel: previewVM)
 }
